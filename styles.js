@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  // Beranda
-  styleBeranda: {
+  // Pencarian
+  stylePencarian: {
     flex: 1,
     backgroundColor: '#b9d7ea',
     justifyContent: 'space-around',
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     margin: 15
   },
-  stylePencarian: {
+  styleTabPencarian: {
     height: 35,
     padding: 5,
     marginHorizontal: 10,
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     fontSize: 16
   },
   styleGambarTombol: {
-    height: 80,
+    height: 90,
     width: '100%',
     marginBottom: 10,
     borderTopRightRadius: 15,
@@ -47,22 +47,23 @@ export default StyleSheet.create({
   },
   styleTombol: {
     margin: 20,
-    width: 150,
+    width: 170,
     borderWidth: 5,
     borderRadius: 15,
     borderColor: "#F7FBFC",
     backgroundColor: '#F7FBFC',
-    height: 150
+    height: 170
   },
 
   // HalamanResepMakanan
   styleHalamanResep: {
     backgroundColor: '#b9d7ea',
     padding: 20,
+    minHeight: 690
   },
   styleResep: {
     backgroundColor: '#F7FBFC',
-    padding: 5,
-    borderRadius: 15
+    borderRadius: 15,
+    padding: 5
   }
 });
