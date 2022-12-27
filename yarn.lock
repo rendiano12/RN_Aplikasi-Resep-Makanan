@@ -4916,6 +4916,11 @@
   "resolved" "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
   "version" "1.2.4"
 
+"local-ip-address@^1.0.0":
+  "integrity" "sha512-hTl+DhvcAAJZ4hHODwBzesm9RsT2r9FSFYCVtgGHadNiI66FxCrTZHtwvzfGte0JrQi1rDPyOd2VKpYMzNSuyw=="
+  "resolved" "https://registry.npmjs.org/local-ip-address/-/local-ip-address-1.0.0.tgz"
+  "version" "1.0.0"
+
 "locate-path@^3.0.0":
   "integrity" "sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A=="
   "resolved" "https://registry.npmjs.org/locate-path/-/locate-path-3.0.0.tgz"
@@ -6105,6 +6110,11 @@
   "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.4.0.tgz"
   "version" "0.4.0"
 
+"react-native-snackbar@^2.4.0":
+  "integrity" "sha512-xEDIDxw0ubBHrsvzaMfrZlFoy+ai1WEJZQwyAsG55fqYxUfQM20h+V4v25u+/H/YKY7ZCRMdCZ8zB5JOnbvCQw=="
+  "resolved" "https://registry.npmjs.org/react-native-snackbar/-/react-native-snackbar-2.4.0.tgz"
+  "version" "2.4.0"
+
 "react-native-sqlite-storage@^6.0.1":
   "integrity" "sha512-1tDFjrint6X6qSYKf3gDyz+XB+X79jfiL6xTugKHPRtF0WvqMtVgdLuNqZunIXjNEvNtNVEbXaeZ6MsguFu00A=="
   "resolved" "https://registry.npmjs.org/react-native-sqlite-storage/-/react-native-sqlite-storage-6.0.1.tgz"
@@ -6118,7 +6128,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.14.0", "react-native@>=0.42.0", "react-native@0.70.4":
+"react-native@*", "react-native@>=0.14.0", "react-native@>=0.42.0", "react-native@>=0.60", "react-native@0.70.4":
   "integrity" "sha512-1e4jWotS20AJ/4lGVkZQs2wE0PvCpIRmPQEQ1FyH7wdyuewFFIxbUHqy6vAj1JWVFfAzbDakOQofrIkkHWLqNA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.4.tgz"
   "version" "0.70.4"
@@ -6178,7 +6188,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.22.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.1.0", "react@>=16.3.0", "react@>=17.0.0", "react@18.1.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.1.0", "react@>=16", "react@>=16.3.0", "react@>=17.0.0", "react@18.1.0":
   "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
   "version" "18.1.0"

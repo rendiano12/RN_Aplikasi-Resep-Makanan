@@ -2,6 +2,24 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  // Beranda
+  styleBeranda: {
+    flex: 1,
+    backgroundColor: '#b9d7ea',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    minHeight: 195
+  },
+  styleTeksBeranda: {
+    color: '#F7FBFC',
+    marginTop: 20,
+    marginHorizontal: 35,
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+
   // Pencarian
   stylePencarian: {
     flex: 1,
@@ -21,7 +39,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 15,
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#F7FBFC',
     margin: 15
   },
   styleTabPencarian: {
@@ -39,7 +57,7 @@ export default StyleSheet.create({
     borderTopLeftRadius: 15
   },
   styleTeksTombol: {
-    fontSize: 15,
+    fontSize: 15, 
     margin: 'auto',
     textAlign: 'center',
     fontFamily: 'Arial',
@@ -47,23 +65,59 @@ export default StyleSheet.create({
   },
   styleTombol: {
     margin: 20,
-    width: 170,
+    width: 185,
     borderWidth: 5,
     borderRadius: 15,
     borderColor: "#F7FBFC",
     backgroundColor: '#F7FBFC',
-    height: 170
+    height: 185
+  },
+  styleContainerModal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  styleViewModal: {
+    margin: 20,
+    backgroundColor: "#F7FBFC",
+    borderRadius: 10,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 1,
+    elevation: 5
+  },
+  styleTeksModal: {
+    marginBottom: 15,
+    textAlign: "center"
   },
 
   // HalamanResepMakanan
   styleHalamanResep: {
     backgroundColor: '#b9d7ea',
     padding: 20,
-    minHeight: 690
+    minHeight: 695
   },
   styleResep: {
     backgroundColor: '#F7FBFC',
     borderRadius: 15,
     padding: 5
+  },
+
+  // Favorit
+  styleFavorit: {
+    flex: 1,
+    backgroundColor: '#b9d7ea',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    minHeight: 200
   }
 });

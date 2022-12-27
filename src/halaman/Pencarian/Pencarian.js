@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, Image, ScrollView, TouchableOpacity, TextInput, Modal, Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { openDatabase } from 'react-native-sqlite-storage';
+
 import styles from '../../../styles';
 import HalamanResepMakanan from './HalamanResepMakanan';
 
@@ -13,98 +13,65 @@ function LogoTitle() {
     );
 }
 
-// Database
-const db = openDatabase({
-    name: 'MakananFavorit.db'
-});
-
-// Resep Makanan
-const resep = [
-    {
-        "title": "Resep Ayam Kalasan Sambal Jeruk Nipis, Santap Siang Semakin Semarak",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2019/09/ayam-kalasan-6-400x240.jpg",
-        "key": "resep-ayam-kalasan-sambal-jeruk-nipis",
-        "times": "1jam",
-        "serving": "4 Porsi",
-        "difficulty": "Mudah"
-    },
-    {
-        "title": "Kreasi Resep Rendang Crispy yang Beda dari Yang Lain",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2020/10/rendang-crispy-400x240.jpg",
-        "key": "resep-rendang-crispy",
-        "times": "2jam",
-        "serving": "4 Porsi",
-        "difficulty": "Cukup Rumit"
-    },
-    {
-        "title": "Es Krim Fresh Mango Frutilicious dari Wall’s Solero Trio",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2020/05/fresh-mango-frutilicious-400x240.jpg",
-        "key": "resep-fresh-mango-frutilicious",
-        "times": "10mnt",
-        "serving": "2 Porsi",
-        "difficulty": "Mudah"
-    },
-    {
-        "title": "Cara Membuat Martabak Mini Gurih Bumbu Aceh untuk Camilan Sore",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2020/12/Martabak-Mini-Telur-2-400x240.jpg",
-        "key": "resep-martabak-mini-gurih",
-        "times": "1jam",
-        "serving": "4 Porsi",
-        "difficulty": "Cukup Rumit"
-    },
-    {
-        "title": "Resep Guava Smuz, Hidangan Penutup Menyegarkan untuk Ramadan",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2020/04/buavita2-400x240.jpg",
-        "key": "guava-smuz-hidangan-penutup",
-        "times": "1jam",
-        "serving": "12 Porsi",
-        "difficulty": "Mudah"
-    },
-    {
-        "title": "Resep Sop Daging Sapi Enak dan Gurih, Mudah Dibuat di Rumah",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2019/01/sop-daging-sapi-400x240.jpg",
-        "key": "resep-sop-daging-sapi",
-        "times": "1jam",
-        "serving": "3 Porsi",
-        "difficulty": "Mudah"
-    },
-    {
-        "title": "Resep Tempe Orek Teri Pedas Manis, Lauk Pelengkap yang Bikin Ketagihan",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2021/08/Resep-tempe-orek-teri-400x240.jpeg",
-        "key": "resep-tempe-orek-teri-pedas-manis",
-        "times": "45mnt",
-        "serving": "4 Porsi",
-        "difficulty": "Mudah"
-    },
-    {
-        "title": "Resep Soto Kudus, Menu Praktis, Enak, dan Bikin Segar",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2020/02/soto-kudus-7-400x240.jpg",
-        "key": "resep-soto-kudus",
-        "times": "40mnt",
-        "serving": "4 Porsi",
-        "difficulty": "Mudah"
-    },
-    {
-        "title": "Resep Laksa Bogor, Street Food Paling Hits dari Kota Hujan",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2020/07/Laksa-Bogor-400x240.jpg",
-        "key": "resep-laksa-bogor",
-        "times": "1jam 15mnt",
-        "serving": "4 Porsi",
-        "difficulty": "Cukup Rumit"
-    },
-    {
-        "title": "Resep Jus Buah Jeruk Jelly Susu, Penyegar Sepulang Tarawih",
-        "thumb": "https://www.masakapahariini.com/wp-content/uploads/2022/04/resep-jus-buah-jeruk-jelly-sus-400x240.jpg",
-        "key": "resep-jus-buah-jeruk-jelly-susu",
-        "times": "30mnt",
-        "serving": "4 Porsi",
-        "difficulty": "Mudah"
-    }
-];
-
 // Bagian Tombol
 function PencarianScreen({ navigation }) {
     const [text, setText] = useState('');
+    const [resep, setResep] = useState([]);
+    const [favorit, setFavorit] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
+
+    // Data Resep Makanan
+    function dataResepMakanan() {
+        fetch('http://192.168.56.1:3000/resep')
+            .then((response) => response.json())
+            .then((json) => setResep(json))
+            .catch((error) => console.error(error));
+    }
+
+    function dataFavoritMakanan() {
+        fetch('http://192.168.56.1:3000/favorit')
+            .then((response) => response.json())
+            .then((json) => setFavorit(json))
+            .catch((error) => console.error(error));
+    }
+
+    // Menambah Favorit Makanan
+    function tambahFavoritMakanan(thumb, times, serving, key) {
+        fetch('http://192.168.56.1:3000/favorit')
+            .then((response) => response.json())
+            .then((json) => setFavorit(json))
+            .catch((error) => console.error(error));
+        // Cek Daftar Favorit
+        if (favorit.map(v => Object.values(v).slice(0, 4).join('')).some(v => v == thumb + times + serving + key)) {
+            setModalVisible2(true);
+        } else {
+            fetch('http://192.168.56.1:3000/favorit', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    thumb: thumb,
+                    times: times,
+                    serving: serving,
+                    key: key
+                }),
+            })
+                .then(() => {
+                    console.log('Favorit makanan telah ditambahkan');
+                    setModalVisible(true);
+                })
+                .catch(error => console.log(error));
+        }
+    }
+
+    useEffect(() => {
+        dataResepMakanan();
+        dataFavoritMakanan();
+    }, []);
+
     const renderMenu = [];
     for (let i = 0; i < resep.length; i++) {
         const namaMakanan = resep[i].key.split('-').map(v => v[0].toUpperCase() + v.slice(1)).filter(v => v != 'Resep').join(' ');
@@ -116,9 +83,18 @@ function PencarianScreen({ navigation }) {
                     porsi: resep[i].serving,
                     recipe: `https://masak-apa.tomorisakura.vercel.app/api/recipe/${resep[i].key}`
                 })}>
-                    <Image source={{ uri: resep[i].thumb }}
-                        style={styles.styleGambarTombol} />
+                    <Image source={{ uri: resep[i].thumb }} style={styles.styleGambarTombol} />
                     <Text style={styles.styleTeksTombol}>{namaMakanan}</Text>
+                    <TouchableOpacity style={{ alignSelf: 'flex-end', margin: 5 }} onPress={() => {
+                        tambahFavoritMakanan(
+                            resep[i].thumb,
+                            resep[i].times,
+                            resep[i].serving,
+                            resep[i].key
+                        );
+                    }}>
+                        <Ionicons name="bookmark-outline" size={22} color='black' />
+                    </TouchableOpacity>
                 </TouchableOpacity>
             );
         }
@@ -137,6 +113,46 @@ function PencarianScreen({ navigation }) {
                             defaultValue={text}
                         />
                     </View>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <View style={styles.styleContainerModal}>
+                            <View style={styles.styleViewModal}>
+                                <Text style={styles.styleTeksModal}>Berhasil Menambah Favorit Makanan.</Text>
+                                <Button
+                                    title="OK"
+                                    onPress={() => setModalVisible(!modalVisible)}
+                                    color="darkblue"
+                                />
+                            </View>
+                        </View>
+                    </Modal>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisible2}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            setModalVisible2(!modalVisible2);
+                        }}
+                    >
+                        <View style={styles.styleContainerModal}>
+                            <View style={styles.styleViewModal}>
+                                <Text style={styles.styleTeksModal}>Resep Sudah Ada di Daftar Favorit.</Text>
+                                <Button
+                                    title="OK"
+                                    onPress={() => setModalVisible2(!modalVisible2)}
+                                    color="darkblue"
+                                />
+                            </View>
+                        </View>
+                    </Modal>
                     {renderMenu}
                 </View>
             </ScrollView>
@@ -148,6 +164,16 @@ const PencarianStack = createStackNavigator();
 
 // Halaman Resep
 function PencarianStackScreen() {
+    const [resep, setResep] = useState([]);
+    function dataResepMakanan() {
+        fetch('http://192.168.56.1:3000/resep')
+            .then((response) => response.json())
+            .then((json) => setResep(json))
+            .catch((error) => console.error(error));
+    }
+    useEffect(() => {
+        dataResepMakanan();
+    }, []);
     const renderMenu = [];
     for (let i = 0; i < resep.length; i++) {
         const namaMakanan = resep[i].key.split('-').map(v => v[0].toUpperCase() + v.slice(1)).filter(v => v != 'Resep').join(' ');

@@ -2,11 +2,14 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import BerandaStackScreen from './src/halaman/Beranda/Beranda';
 import PencarianStackScreen from './src/halaman/Pencarian/Pencarian';
+import FavoritStackScreen from './src/halaman/Favorit/Favorit';
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -22,6 +25,10 @@ export default function App() {
               iconName = focused
                 ? 'search'
                 : 'search-outline';
+            } else if (route.name === 'Favorit') {
+              iconName = focused
+                ? 'bookmarks'
+                : 'bookmarks-outline';
             }
 
             // You can return any component that you like here!
@@ -33,9 +40,12 @@ export default function App() {
           headerShown: false
         })}
       >
-        {/* <Tab.Screen name="Beranda" component={BerandaStackScreen} /> */}
+        <Tab.Screen name="Beranda" component={BerandaStackScreen} />
         <Tab.Screen name="Pencarian" component={PencarianStackScreen} />
+        <Tab.Screen name="Favorit" component={FavoritStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 } 
+
+export default App;
